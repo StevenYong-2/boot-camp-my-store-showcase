@@ -1,7 +1,7 @@
 "use client";
 
-import { use } from "react";
 import { useEffect, useState } from "react";
+import { use } from "react";
 
 export default function Page({ params }) {
   const { slug } = use(params);
@@ -20,17 +20,27 @@ export default function Page({ params }) {
   return (
     <div className="container">
       <div className="product-detail">
-        <h1>{product.title}</h1>
 
+        {/* LEFT IMAGE */}
         <img src={product.image} alt={product.title} />
 
-        <p>{product.description}</p>
+        {/* RIGHT CONTENT */}
+        <div className="product-info">
 
-        <h2>${product.price}</h2>
+          <h1>{product.title}</h1>
 
-        <button onClick={() => setFavorite(!favorite)}>
-          {favorite ? "❤️ Favorited" : "🤍 Add to Favorite"}
-        </button>
+          <p>{product.description}</p>
+
+          <h2 className="product-price">
+            ${product.price}
+          </h2>
+
+          <button onClick={() => setFavorite(!favorite)}>
+            {favorite ? "❤️ Favorited" : "🤍 Add to Favorite"}
+          </button>
+
+        </div>
+
       </div>
     </div>
   );

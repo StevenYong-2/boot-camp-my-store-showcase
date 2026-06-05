@@ -1,36 +1,35 @@
-import ProductCard from "./components/ProductCard";
+import Link from "next/link";
 
-async function getProducts() {
-  const res = await fetch(
-    "https://fakestoreapi.com/products?limit=5",
-    {
-      cache: "no-store",
-    }
-  );
+export default async function HomePage() {
+  const res = await fetch("https://fakestoreapi.com/products", {
+    cache: "no-store",
+  });
 
-  return res.json();
-}
-
-export default async function Home() {
-  const products = await getProducts();
+  const products = await res.json();
 
   return (
-    <div>
-      <h1
-        style={{
-          textAlign: "center",
-          marginTop: "30px",
-        }}
-      >
-        Product Showcase
-      </h1>
+    <div className="container">
+      <h1>Products</h1>
 
       <div className="product-grid">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
+        {products.slice(0, 5).map((p) => (
+          <div className="card" key={p.id}>
+            <img
+              src={p.image}
+              alt={p.title}
+              className="product-image"
+            />
+
+            <h3>{p.title}</h3>
+
+            <p className="price">${p.price}</p>
+
+            <Link href={`/products/${p.id}`}>
+              <button className="detail-btn">
+                View Details
+              </button>
+            </Link>
+          </div>
         ))}
       </div>
     </div>
